@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Dasha Pishta](https://up.htmlacademy.ru/javascript/24/user/1028665).
-* Наставник: [Егор Глебов](https://htmlacademy.ru/profile/beast).
+* Наставник: [Александр Бабченко](https://htmlacademy.ru/profile/babtshe).
 
 ---
 
