@@ -1,24 +1,16 @@
-function getRandomNumber (min, max, numberOfSymbolsAfterComma) {
+function getRandomPositiveNumber (min, max, numberOfSymbolsAfterComma) {
 
   if (min < 0) {
-    // eslint-disable-next-line no-alert
-    alert('Please choose a range where min is equal or higher than 0');
-    return NaN;
-  } else if (max < min) {
-    const swap = min;
-    min = max;
-    max = swap;
-  } else if (numberOfSymbolsAfterComma < 0) {
-    // eslint-disable-next-line no-alert
-    alert('Please choose the number of symbols after comma greater than zero');
-    return NaN;
+    throw new RangeError(`Параметр ${  min  }  должен быть больше 0 `);
   }
 
-  const randomNumber = Math.random() * (max - min) + min;
+  const maxNumber = Math.max(min,max);
+  const minNumber = Math.min(min,max);
+
+  const randomNumber = Math.random() * (maxNumber - minNumber) + minNumber;
 
   return (randomNumber).toFixed(numberOfSymbolsAfterComma);
 
 }
 
-getRandomNumber(1,1000,5);
-getRandomNumber(1,100);
+getRandomPositiveNumber(100,1,2);
