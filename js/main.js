@@ -22,7 +22,7 @@ const LOCATION =
     },
   };
 
-const types = [
+const TYPES= [
   'palace',
   'flat',
   'house',
@@ -30,19 +30,19 @@ const types = [
   'hotel',
 ];
 
-const checkins = [
+const CHECKINS = [
   '12:00',
   '13:00',
   '14:00',
 ];
 
-const checkouts = [
+const CHECKOUTS = [
   '12:00',
   '13:00',
   '14:00',
 ];
 
-const features = [
+const FEATURES = [
   'wifi',
   'dishwasher',
   'parking',
@@ -51,7 +51,7 @@ const features = [
   'conditioner',
 ];
 
-const photos = [
+const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
@@ -65,8 +65,8 @@ function getRandomPositiveNumber (min, max, numberOfSymbolsAfterComma) {
     throw new RangeError(`Параметр ${  min  }  должен быть больше 0 `);
   }
 
-  const maxNumber = Math.max(min,max);
-  const minNumber = Math.min(min,max);
+  const maxNumber = Math.max(min, max);
+  const minNumber = Math.min(min, max);
 
   const randomNumber = Math.random() * (maxNumber - minNumber) + minNumber;
 
@@ -83,32 +83,27 @@ function shuffleArray(array) {
 
 
 function getAvatar () {
-  let avatar;
-  const avatarRandomNumber = getRandomPositiveNumber(MIN_AVATAR,MAX_AVATAR);
-
-  (avatarRandomNumber<10)
-    ? avatar = `img/avatars/user0${  avatarRandomNumber  }.png`
-    : avatar = `img/avatars/user${  avatarRandomNumber  }.png`;
-
+  const avatarRandomNumber = getRandomPositiveNumber(MIN_AVATAR, MAX_AVATAR);
+  const avatar = (avatarRandomNumber<10) ? `img/avatars/user0${  avatarRandomNumber  }.png` : `img/avatars/user${  avatarRandomNumber  }.png`;
   return avatar;
 }
 
 
 function getFeatures () {
-  const featuresNumber = getRandomPositiveNumber(0,features.length-1);
-  const featuresForShuffle = features.slice();
+  const featuresNumber = getRandomPositiveNumber(0, FEATURES.length-1);
+  const featuresForShuffle = FEATURES.slice();
   const shuffledFeatures = shuffleArray(featuresForShuffle);
-  return shuffledFeatures.slice(0,featuresNumber);
+  return shuffledFeatures.slice(0, featuresNumber);
 }
 
 
 function getPhotos () {
 
   function choosePhoto () {
-    return photos[getRandomPositiveNumber(0,photos.length-1)];
+    return PHOTOS[getRandomPositiveNumber(0, PHOTOS.length-1)];
   }
 
-  const numberOfPhotos = getRandomPositiveNumber(0,MAX_OTHER);
+  const numberOfPhotos = getRandomPositiveNumber(0, MAX_OTHER);
   return Array.from({length: numberOfPhotos}, choosePhoto);
 }
 
@@ -126,12 +121,12 @@ function getAd () {
     offer : {
       title: TITLE,
       address: `${location.lat  }, ${  location.lng}`,
-      price: getRandomPositiveNumber(0,MAX_PRICE),
-      type: types[getRandomPositiveNumber(0,types.length - 1)],
-      rooms: getRandomPositiveNumber(0,MAX_OTHER),
-      guests: getRandomPositiveNumber(0,MAX_OTHER),
-      checkin: checkouts[getRandomPositiveNumber(0,checkins.length - 1)],
-      checkout: checkouts[getRandomPositiveNumber(0,checkouts.length - 1)],
+      price: getRandomPositiveNumber(0, MAX_PRICE),
+      type: TYPES[getRandomPositiveNumber(0, TYPES.length - 1)],
+      rooms: getRandomPositiveNumber(0, MAX_OTHER),
+      guests: getRandomPositiveNumber(0, MAX_OTHER),
+      checkin: CHECKINS[getRandomPositiveNumber(0, CHECKINS.length - 1)],
+      checkout: CHECKOUTS[getRandomPositiveNumber(0, CHECKOUTS.length - 1)],
       features: getFeatures(),
       description: DESCRIPTION,
       photos: getPhotos(),
