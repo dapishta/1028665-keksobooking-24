@@ -52,9 +52,8 @@ function getAd () {
 
 }
 
-function getRelatedAds () {
+function getRelatedOffers () {
   return Array.from({length: NUMBER_OF_RELATED_ADS}, getAd);
 }
 
-// eslint-disable-next-line no-console
-export {getRelatedAds};
+export {getRelatedOffers};
