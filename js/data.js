@@ -18,11 +18,11 @@ const LOCATION =
   };
 
 const TYPES= [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
-  'hotel',
+  {'palace': 'Дворец'},
+  {'hotel': 'Отель'},
+  {'flat': 'Квартира'},
+  {'bungalow': 'Бунгало'},
+  {'house': 'Дом'},
 ];
 
 const CHECKINS = [

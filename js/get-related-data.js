@@ -52,8 +52,8 @@ function getAd () {
 
 }
 
-function getRelatedOffers () {
+function getRelatedData () {
   return Array.from({length: NUMBER_OF_RELATED_ADS}, getAd);
 }
 
-export {getRelatedOffers};
+export {getRelatedData};

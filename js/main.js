@@ -1,3 +1,3 @@
-import {showRelatedOffers} from './show-related-offers.js';
+import {showRelatedOffer} from './show-related-offer.js';
 
-showRelatedOffers();
+showRelatedOffer();
