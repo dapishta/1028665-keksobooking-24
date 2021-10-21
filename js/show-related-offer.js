@@ -1,5 +1,5 @@
 import {getRelatedData} from './get-related-data.js';
-import {getImgTags} from './get-img-tags.js';
+import {getImgTagsFragment} from './get-img-tags-fragment.js';
 import {insertFragment} from './insert-fragment.js';
 
 
@@ -7,7 +7,7 @@ const cardTemplate = document.querySelector('#card').content;
 const map = document.querySelector('#map-canvas');
 const relatedOffers = getRelatedData();
 
-function getRoomsName (number) {
+function getRoomsEnding (number) {
   if (number === 1) {
     return 'комната';
   } else if (number <= 4) {
@@ -16,8 +16,12 @@ function getRoomsName (number) {
   return 'комнат';
 }
 
-function getRelatedOffer () {
-  const item = relatedOffers[0];
+function getGuestEnding (number) {
+  return (number > 1) ? 'гостeй' : 'гостя';
+}
+
+
+function getRelatedOffer (item) {
   const newRelatedOffer = cardTemplate.cloneNode(true);
   const offerTitle = newRelatedOffer.querySelector('.popup__title');
   const offerAddress = newRelatedOffer.querySelector('.popup__text--address');
@@ -34,18 +38,18 @@ function getRelatedOffer () {
   offerAddress.textContent = item.offer.address;
   offerPrice.textContent = `${  item.offer.price  } ₽/ночь`;
   offerType.textContent = Object.values(item.offer.type);
-  offerCapacity.textContent = `${  item.offer.rooms  } ${  getRoomsName(item.offer.rooms)  } для ${  item.offer.guests  } ${  item.offer.guests === 1 ? 'гостя' : 'гостей'  }`;
+  offerCapacity.textContent = `${  item.offer.rooms  } ${  getRoomsEnding(item.offer.rooms)  } для ${  item.offer.guests  } ${  getGuestEnding(item.offer.guests)  }`;
   offerCheckInOut.textContent = `${  item.offer.checkin  }, выезд до ${  item.offer.checkout  }`;
   offerFeatures.textContent = item.offer.features;
   item.offer.description ? offerDescription.classList.add('hidden') : offerDescription.textContent = item.offer.description;
 
-  offerPhotos.appendChild(getImgTags(item.offer.photos));
+  offerPhotos.appendChild(getImgTagsFragment(item.offer.photos));
   offerAuthorAvatar.src = item.author.avatar;
   return newRelatedOffer;
 }
 
 function showRelatedOffer () {
-  const relatedOffer = getRelatedOffer();
+  const relatedOffer = getRelatedOffer(relatedOffers[0]);
   insertFragment(map, relatedOffer);
 }
 

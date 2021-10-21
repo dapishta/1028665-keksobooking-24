@@ -1,12 +1,13 @@
-function getImgTags (array) {
+function getImgTagsFragment (array) {
   const imagesFragment = document.createDocumentFragment();
 
-  for (let counter = 0; counter < array.length; counter++) {
+  array.forEach((element) => {
     const newImg = document.createElement('img');
-    newImg.src = array[counter];
+    newImg.src = element;
     imagesFragment.appendChild(newImg);
-  }
+  });
+
   return imagesFragment;
 }
 
-export {getImgTags};
+export {getImgTagsFragment};
