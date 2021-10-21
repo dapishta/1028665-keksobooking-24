@@ -1,6 +1,3 @@
-import {getRelatedAds} from './related.js';
+import {showRelatedOffer} from './show-related-offer.js';
 
-const relatedAds = getRelatedAds();
-// eslint-disable-next-line no-console
-console.log(relatedAds);
-
+showRelatedOffer();
