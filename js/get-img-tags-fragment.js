@@ -1,7 +1,7 @@
-function getImgTagsFragment (array) {
+function getImgTagsFragment (urls) {
   const imagesFragment = document.createDocumentFragment();
 
-  array.forEach((element) => {
+  urls.forEach((element) => {
     const newImg = document.createElement('img');
     newImg.src = element;
     imagesFragment.appendChild(newImg);

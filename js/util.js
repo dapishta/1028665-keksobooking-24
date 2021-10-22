@@ -19,4 +19,20 @@ function shuffleArray(array) {
   return array;
 }
 
-export {getRandomPositiveNumber, shuffleArray};
+function addClassName (element, className) {
+  element.classList.add(className);
+}
+
+function removeClassName (element, className) {
+  element.classList.remove(className);
+}
+
+function disableField (field) {
+  field.disabled = true;
+}
+
+function enableField (field) {
+  field.disabled = false;
+}
+
+export {getRandomPositiveNumber, shuffleArray, addClassName, disableField, enableField, removeClassName};

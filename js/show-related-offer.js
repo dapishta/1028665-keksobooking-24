@@ -7,16 +7,23 @@ const cardTemplate = document.querySelector('#card').content;
 const map = document.querySelector('#map-canvas');
 const relatedOffers = getRelatedData();
 
-function getRoomsEnding (number) {
-  if (number === 1) {
+
+function getRoomWord (number) {
+
+  const lastNumber = number % 10;
+
+  if (lastNumber === 1) {
     return 'комната';
-  } else if (number <= 4) {
+  }
+
+  if (lastNumber > 1 && lastNumber <= 4) {
     return 'комнаты';
   }
+
   return 'комнат';
 }
 
-function getGuestEnding (number) {
+function getGuestWord (number) {
   return (number > 1) ? 'гостeй' : 'гостя';
 }
 
@@ -33,12 +40,16 @@ function getRelatedOffer (item) {
   const offerDescription = newRelatedOffer.querySelector('.popup__description');
   const offerPhotos = newRelatedOffer.querySelector('.popup__photos');
   const offerAuthorAvatar = newRelatedOffer.querySelector('.popup__avatar');
+  const roomsNumber = item.offer.rooms;
+  const roomsWord = getRoomWord(roomsNumber);
+  const guestsNumber = item.offer.guests;
+  const guestsWord = getGuestWord(guestsNumber);
 
   offerTitle.textContent = item.offer.title;
   offerAddress.textContent = item.offer.address;
   offerPrice.textContent = `${  item.offer.price  } ₽/ночь`;
   offerType.textContent = Object.values(item.offer.type);
-  offerCapacity.textContent = `${  item.offer.rooms  } ${  getRoomsEnding(item.offer.rooms)  } для ${  item.offer.guests  } ${  getGuestEnding(item.offer.guests)  }`;
+  offerCapacity.textContent = `${  roomsNumber  } ${  roomsWord  } для ${  guestsNumber  } ${  guestsWord  }`;
   offerCheckInOut.textContent = `${  item.offer.checkin  }, выезд до ${  item.offer.checkout  }`;
   offerFeatures.textContent = item.offer.features;
   item.offer.description ? offerDescription.classList.add('hidden') : offerDescription.textContent = item.offer.description;
