@@ -9,7 +9,7 @@ const mapFiltersFileldsets = mapFilters.querySelectorAll('fieldset');
 
 function deactivateForms () {
   addClassName(adForm, 'ad-form--disabled');
-  addClassName(mapFilters, 'ad-form--disabled');
+  addClassName(mapFilters, 'map__filters--disabled');
   adFormFileldsets.forEach( (element) => {
     disableField(element);
   } );
@@ -20,7 +20,7 @@ function deactivateForms () {
 
 function activateForms () {
   removeClassName(adForm, 'ad-form--disabled');
-  removeClassName(mapFilters, 'ad-form--disabled');
+  removeClassName(mapFilters, 'map__filters--disabled');
   adFormFileldsets.forEach( (element) => {
     enableField(element);
   } );
