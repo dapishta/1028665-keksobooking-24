@@ -3,6 +3,7 @@ import {deactivateForms, activateForms} from './form.js';
 
 
 showRelatedOffer();
-activateForms();
 deactivateForms();
+activateForms();
+
 
