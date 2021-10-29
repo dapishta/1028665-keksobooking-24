@@ -1,5 +1,5 @@
 import {showRelatedOffer} from './show-related-offer.js';
-import {deactivateForms, activateForms} from './form.js';
+import {deactivateForms, activateForms} from './activate-forms.js';
 
 
 showRelatedOffer();
