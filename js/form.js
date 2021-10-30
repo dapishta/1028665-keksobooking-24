@@ -1,9 +1,15 @@
 import {addClassName, disableField, enableField, removeClassName} from './util.js';
+import {TYPE_MIN_PRICES} from './data.js';
 
 const form = document.querySelector('.ad-form');
 const formFieldsets = form.querySelectorAll('fieldset');
 const capacityField = form.querySelector('#capacity');
 const capacityOptions = capacityField.querySelectorAll('option');
+const timeInField = form.querySelector('#timein');
+const timeInOptions = timeInField.querySelectorAll('option');
+const timeOutField = form.querySelector('#timeout');
+const timeOutOptions = timeOutField.querySelectorAll('option');
+const priceField = form.querySelector('#price');
 
 
 // Form validation
@@ -38,6 +44,19 @@ function setAvailableCapacity () {
 }
 
 
+function setTimeInOut (value, options) {
+  options.forEach ( (option) => {
+    if (option.value === value) {
+      option.selected = true;
+    }
+  });
+}
+
+function setMinPrice (value) {
+  priceField.min = TYPE_MIN_PRICES[value];
+  priceField.placeholder = TYPE_MIN_PRICES[value];
+}
+
 function onAdFormChange (evt) {
   if (evt.target.matches('#room_number')) {
     setAvailableCapacity();
@@ -45,6 +64,16 @@ function onAdFormChange (evt) {
   if (evt.target.matches('#capacity')) {
     setAvailableCapacity();
   }
+  if (evt.target.matches('#timein')) {
+    setTimeInOut(evt.target.value, timeOutOptions);
+  }
+  if (evt.target.matches('#timeout')) {
+    setTimeInOut(evt.target.value, timeInOptions);
+  }
+  if (evt.target.matches('#type')) {
+    setMinPrice(evt.target.value);
+  }
+
 }
 
 // Form activation
@@ -60,6 +89,7 @@ function deactivateForm () {
 function activateForm () {
   form.addEventListener('change', onAdFormChange);
   setAvailableCapacity();
+  setMinPrice('flat');
   removeClassName(form, 'ad-form--disabled');
   formFieldsets.forEach( (element) => {
     enableField(element);
