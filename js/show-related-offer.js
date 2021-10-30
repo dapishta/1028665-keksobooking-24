@@ -1,6 +1,6 @@
 import {getRelatedData} from './get-related-data.js';
 import {getImgTagsFragment} from './get-img-tags-fragment.js';
-import {insertFragment} from './insert-fragment.js';
+import {insertFragment} from './util.js';
 
 
 const cardTemplate = document.querySelector('#card').content;
