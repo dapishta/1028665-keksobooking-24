@@ -39,5 +39,17 @@ function insertFragment (placeToInsert, fragment) {
   placeToInsert.appendChild(fragment);
 }
 
+function getImgTagsFragment (urls) {
+  const imagesFragment = document.createDocumentFragment();
 
-export {insertFragment,getRandomPositiveNumber, shuffleArray, addClassName, disableField, enableField, removeClassName};
+  urls.forEach((element) => {
+    const newImg = document.createElement('img');
+    newImg.src = element;
+    imagesFragment.appendChild(newImg);
+  });
+
+  return imagesFragment;
+}
+
+
+export {insertFragment,getRandomPositiveNumber, shuffleArray, addClassName, disableField, enableField, removeClassName, getImgTagsFragment};
