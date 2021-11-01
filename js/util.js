@@ -35,4 +35,9 @@ function enableField (field) {
   field.disabled = false;
 }
 
-export {getRandomPositiveNumber, shuffleArray, addClassName, disableField, enableField, removeClassName};
+function insertFragment (placeToInsert, fragment) {
+  placeToInsert.appendChild(fragment);
+}
+
+
+export {insertFragment,getRandomPositiveNumber, shuffleArray, addClassName, disableField, enableField, removeClassName};

@@ -1,8 +1,16 @@
 import {showRelatedOffer} from './show-related-offer.js';
-import {deactivateForms, activateForms} from './form.js';
+import {deactivateForm, activateForm} from './form.js';
+import {deactivateFilter, activateFilter} from './filter.js';
 
 
-showRelatedOffer();
-activateForms();
-deactivateForms();
+function setUpPage () {
+  showRelatedOffer();
+  deactivateForm();
+  activateForm();
+  deactivateFilter();
+  activateFilter();
+}
+
+setUpPage();
+
 
