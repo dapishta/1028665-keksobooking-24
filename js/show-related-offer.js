@@ -1,6 +1,4 @@
 import {getRelatedData} from './get-related-data.js';
-import {getImgTagsFragment} from './get-img-tags-fragment.js';
-import {insertFragment} from './util.js';
 
 
 const cardTemplate = document.querySelector('#card').content;
@@ -9,7 +7,6 @@ const relatedOffers = getRelatedData();
 
 
 function getRoomWord (number) {
-
   const lastNumber = number % 10;
 
   if (lastNumber === 1) {
@@ -27,6 +24,18 @@ function getGuestWord (number) {
   return (number > 1) ? 'гостeй' : 'гостя';
 }
 
+function getOfferPhotosFragment (urls, template) {
+  const imagesFragment = document.createDocumentFragment();
+
+  urls.forEach((element) => {
+    const newImg = template.cloneNode(true);
+    newImg.src = element;
+    imagesFragment.appendChild(newImg);
+  });
+
+  return imagesFragment;
+}
+
 
 function getRelatedOffer (item) {
   const newRelatedOffer = cardTemplate.cloneNode(true);
@@ -39,11 +48,13 @@ function getRelatedOffer (item) {
   const offerFeatures = newRelatedOffer.querySelector('.popup__features');
   const offerDescription = newRelatedOffer.querySelector('.popup__description');
   const offerPhotos = newRelatedOffer.querySelector('.popup__photos');
+  const offerPhotoTemplate = offerPhotos.querySelector('img.popup__photo');
   const offerAuthorAvatar = newRelatedOffer.querySelector('.popup__avatar');
   const roomsNumber = item.offer.rooms;
   const roomsWord = getRoomWord(roomsNumber);
   const guestsNumber = item.offer.guests;
   const guestsWord = getGuestWord(guestsNumber);
+  const imagesToInsert = getOfferPhotosFragment(item.offer.photos, offerPhotoTemplate);
 
   offerTitle.textContent = item.offer.title;
   offerAddress.textContent = item.offer.address;
@@ -54,14 +65,15 @@ function getRelatedOffer (item) {
   offerFeatures.textContent = item.offer.features;
   item.offer.description ? offerDescription.classList.add('hidden') : offerDescription.textContent = item.offer.description;
 
-  offerPhotos.appendChild(getImgTagsFragment(item.offer.photos));
+  offerPhotos.replaceChild(imagesToInsert, offerPhotoTemplate);
+
   offerAuthorAvatar.src = item.author.avatar;
   return newRelatedOffer;
 }
 
 function showRelatedOffer () {
   const relatedOffer = getRelatedOffer(relatedOffers[0]);
-  insertFragment(map, relatedOffer);
+  map.appendChild(relatedOffer);
 }
 
 export {showRelatedOffer};
