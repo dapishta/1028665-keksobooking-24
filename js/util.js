@@ -19,13 +19,6 @@ function shuffleArray(array) {
   return array;
 }
 
-function addClassName (element, className) {
-  element.classList.add(className);
-}
-
-function removeClassName (element, className) {
-  element.classList.remove(className);
-}
 
 function disableField (field) {
   field.disabled = true;
@@ -35,21 +28,5 @@ function enableField (field) {
   field.disabled = false;
 }
 
-function insertFragment (placeToInsert, fragment) {
-  placeToInsert.appendChild(fragment);
-}
 
-function getImgTagsFragment (urls) {
-  const imagesFragment = document.createDocumentFragment();
-
-  urls.forEach((element) => {
-    const newImg = document.createElement('img');
-    newImg.src = element;
-    imagesFragment.appendChild(newImg);
-  });
-
-  return imagesFragment;
-}
-
-
-export {insertFragment,getRandomPositiveNumber, shuffleArray, addClassName, disableField, enableField, removeClassName, getImgTagsFragment};
+export {getRandomPositiveNumber, shuffleArray, disableField, enableField};

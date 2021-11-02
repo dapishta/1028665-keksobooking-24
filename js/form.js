@@ -1,4 +1,4 @@
-import {addClassName, disableField, enableField, removeClassName} from './util.js';
+import {disableField, enableField} from './util.js';
 import {TYPE_MIN_PRICES} from './data.js';
 
 const form = document.querySelector('.ad-form');
@@ -80,7 +80,7 @@ function onAdFormChange (evt) {
 
 function deactivateForm () {
   form.removeEventListener('change', onAdFormChange);
-  addClassName(form, 'ad-form--disabled');
+  form.classList.add('ad-form--disabled');
   formFieldsets.forEach( (element) => {
     disableField(element);
   } );
@@ -90,7 +90,7 @@ function activateForm () {
   form.addEventListener('change', onAdFormChange);
   setAvailableCapacity();
   setMinPrice('flat');
-  removeClassName(form, 'ad-form--disabled');
+  form.classList.remove('ad-form--disabled');
   formFieldsets.forEach( (element) => {
     enableField(element);
   } );
