@@ -11,7 +11,7 @@ function getRandomPositiveNumber (min, max, numberOfSymbolsAfterComma) {
   return (randomNumber).toFixed(numberOfSymbolsAfterComma);
 }
 
-function shuffleArray(array) {
+function shuffleArray (array) {
   for (let index = array.length - 1; index > 0; index--) {
     const randomIndex = Math.floor(Math.random() * (index + 1));
     [array[index], array[randomIndex]] = [array[randomIndex], array[index]];
@@ -20,13 +20,4 @@ function shuffleArray(array) {
 }
 
 
-function disableField (field) {
-  field.disabled = true;
-}
-
-function enableField (field) {
-  field.disabled = false;
-}
-
-
-export {getRandomPositiveNumber, shuffleArray, disableField, enableField};
+export {getRandomPositiveNumber, shuffleArray};
