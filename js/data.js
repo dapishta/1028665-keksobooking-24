@@ -3,7 +3,7 @@ const DESCRIPTION = 'Заполните все обязательные поля
 const MAX_PRICE = 10000;
 const MIN_AVATAR = 1;
 const MAX_AVATAR = 10;
-const MAX_OTHER= 100;
+const MAX_OTHER= 10;
 const NUMBER_OF_RELATED_ADS = 10;
 const LOCATION =
   {

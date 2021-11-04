@@ -1,4 +1,4 @@
-import {TYPE_MIN_PRICES} from './data.js';
+import { TYPE_MIN_PRICES } from './data.js';
 
 const form = document.querySelector('.ad-form');
 const formFieldsets = form.querySelectorAll('fieldset');
@@ -9,6 +9,7 @@ const timeInOptions = timeInField.querySelectorAll('option');
 const timeOutField = form.querySelector('#timeout');
 const timeOutOptions = timeOutField.querySelectorAll('option');
 const priceField = form.querySelector('#price');
+const addressField = form.querySelector('#address');
 
 
 // Form validation
@@ -96,4 +97,4 @@ function activateForm () {
 }
 
 
-export {deactivateForm, activateForm};
+export {deactivateForm, activateForm, addressField};

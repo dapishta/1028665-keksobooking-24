@@ -1,15 +1,15 @@
-import {showRelatedOffer} from './show-related-offer.js';
-import {deactivateForm, activateForm} from './form.js';
-import {deactivateFilter, activateFilter} from './filter.js';
+import { deactivateForm } from './form.js';
+import { deactivateFilter } from './filter.js';
+import { activateMap } from './map.js';
 
 
 function setUpPage () {
-  showRelatedOffer();
   deactivateForm();
-  activateForm();
   deactivateFilter();
-  activateFilter();
+  // console.log('page setup')
+  activateMap();
 }
+
 
 setUpPage();
 

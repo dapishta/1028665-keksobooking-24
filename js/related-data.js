@@ -1,5 +1,5 @@
-import {TITLE, DESCRIPTION, MAX_PRICE, MIN_AVATAR, MAX_AVATAR, MAX_OTHER, NUMBER_OF_RELATED_ADS, LOCATION, TYPES, CHECKINS, CHECKOUTS, FEATURES, PHOTOS} from './data.js';
-import {getRandomPositiveNumber, shuffleArray} from './util.js';
+import { TITLE, DESCRIPTION, MAX_PRICE, MIN_AVATAR, MAX_AVATAR, MAX_OTHER, NUMBER_OF_RELATED_ADS, LOCATION, TYPES, CHECKINS, CHECKOUTS, FEATURES, PHOTOS } from './data.js';
+import { getRandomPositiveNumber, shuffleArray } from './util.js';
 
 function getAvatar () {
   const avatarRandomNumber = getRandomPositiveNumber(MIN_AVATAR, MAX_AVATAR);
