@@ -97,4 +97,4 @@ function activateForm () {
 }
 
 
-export {deactivateForm, activateForm, addressField};
+export { deactivateForm, activateForm, addressField };

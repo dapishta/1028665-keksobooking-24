@@ -2,7 +2,6 @@ import { getRelatedData } from './related-data.js';
 
 
 const cardTemplate = document.querySelector('#card').content;
-const map = document.querySelector('#map-canvas');
 const relatedOffers = getRelatedData();
 
 
@@ -71,10 +70,6 @@ function getRelatedOffer (item) {
   return newRelatedOffer;
 }
 
-function showRelatedOffer () {
-  const relatedOffer = getRelatedOffer(relatedOffers[0]);
-  map.appendChild(relatedOffer);
-}
 
-export {showRelatedOffer, relatedOffers, getRelatedOffer};
+export { relatedOffers, getRelatedOffer };
 

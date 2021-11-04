@@ -20,4 +20,4 @@ function shuffleArray (array) {
 }
 
 
-export {getRandomPositiveNumber, shuffleArray};
+export { getRandomPositiveNumber, shuffleArray };

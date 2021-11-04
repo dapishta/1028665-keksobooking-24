@@ -6,7 +6,6 @@ import { activateMap } from './map.js';
 function setUpPage () {
   deactivateForm();
   deactivateFilter();
-  // console.log('page setup')
   activateMap();
 }
 

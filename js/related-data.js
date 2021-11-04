@@ -56,4 +56,4 @@ function getRelatedData () {
   return Array.from({length: NUMBER_OF_RELATED_ADS}, getAd);
 }
 
-export {getRelatedData};
+export { getRelatedData };
