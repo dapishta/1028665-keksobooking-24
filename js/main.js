@@ -1,16 +1,23 @@
-import {showRelatedOffer} from './show-related-offer.js';
-import {deactivateForm, activateForm} from './form.js';
-import {deactivateFilter, activateFilter} from './filter.js';
+import { activateForm, deactivateForm } from './form.js';
+import { activateFilter, deactivateFilter } from './filter.js';
+import { activateMap, addRelatedMarkers } from './map.js';
+import { relatedOffers } from './related-offer.js';
 
 
 function setUpPage () {
-  showRelatedOffer();
   deactivateForm();
-  activateForm();
   deactivateFilter();
+  activateMap();
+}
+
+function activatePage () {
+  activateForm();
   activateFilter();
+  addRelatedMarkers(relatedOffers);
 }
 
 setUpPage();
+
+export {activatePage};
 
 

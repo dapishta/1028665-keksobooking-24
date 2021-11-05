@@ -1,8 +1,7 @@
-import {getRelatedData} from './get-related-data.js';
+import { getRelatedData } from './related-data.js';
 
 
-const cardTemplate = document.querySelector('#card').content;
-const map = document.querySelector('#map-canvas');
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const relatedOffers = getRelatedData();
 
 
@@ -62,8 +61,8 @@ function getRelatedOffer (item) {
   offerType.textContent = Object.values(item.offer.type);
   offerCapacity.textContent = `${  roomsNumber  } ${  roomsWord  } для ${  guestsNumber  } ${  guestsWord  }`;
   offerCheckInOut.textContent = `${  item.offer.checkin  }, выезд до ${  item.offer.checkout  }`;
-  offerFeatures.textContent = item.offer.features;
-  item.offer.description ? offerDescription.classList.add('hidden') : offerDescription.textContent = item.offer.description;
+  item.offer.features ? offerFeatures.textContent = item.offer.features : offerFeatures.classList.add('hidden');
+  item.offer.description ? offerDescription.textContent = item.offer.description : offerDescription.classList.add('hidden');
 
   offerPhotos.replaceChild(imagesToInsert, offerPhotoTemplate);
 
@@ -71,10 +70,6 @@ function getRelatedOffer (item) {
   return newRelatedOffer;
 }
 
-function showRelatedOffer () {
-  const relatedOffer = getRelatedOffer(relatedOffers[0]);
-  map.appendChild(relatedOffer);
-}
 
-export {showRelatedOffer};
+export { relatedOffers, getRelatedOffer };
 

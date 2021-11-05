@@ -15,4 +15,4 @@ function activateFilter () {
   } );
 }
 
-export {deactivateFilter, activateFilter};
+export { deactivateFilter, activateFilter };
