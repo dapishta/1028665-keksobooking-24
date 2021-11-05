@@ -1,6 +1,7 @@
-import { deactivateForm } from './form.js';
-import { deactivateFilter } from './filter.js';
-import { activateMap } from './map.js';
+import { activateForm, deactivateForm } from './form.js';
+import { activateFilter, deactivateFilter } from './filter.js';
+import { activateMap, addRelatedMarkers } from './map.js';
+import { relatedOffers } from './related-offer.js';
 
 
 function setUpPage () {
@@ -9,7 +10,14 @@ function setUpPage () {
   activateMap();
 }
 
+function activatePage () {
+  activateForm();
+  activateFilter();
+  addRelatedMarkers(relatedOffers);
+}
 
 setUpPage();
+
+export {activatePage};
 
 

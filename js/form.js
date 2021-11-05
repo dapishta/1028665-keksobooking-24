@@ -1,4 +1,4 @@
-import { TYPE_MIN_PRICES } from './data.js';
+import { TYPE_MIN_PRICES, TOKYO_CENTER_LOCATION } from './data.js';
 
 const form = document.querySelector('.ad-form');
 const formFieldsets = form.querySelectorAll('fieldset');
@@ -76,6 +76,10 @@ function onAdFormChange (evt) {
 
 }
 
+function setAddressField (object) {
+  addressField.value = `${object.lat}, ${object.lng}`;
+}
+
 // Form activation
 
 function deactivateForm () {
@@ -90,6 +94,7 @@ function activateForm () {
   form.addEventListener('change', onAdFormChange);
   setAvailableCapacity();
   setMinPrice('flat');
+  addressField.value = `${TOKYO_CENTER_LOCATION.lat}, ${TOKYO_CENTER_LOCATION.lng}`;
   form.classList.remove('ad-form--disabled');
   formFieldsets.forEach( (element) => {
     element.disabled = false;
@@ -97,4 +102,4 @@ function activateForm () {
 }
 
 
-export { deactivateForm, activateForm, addressField };
+export { deactivateForm, activateForm, setAddressField };

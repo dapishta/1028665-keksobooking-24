@@ -1,14 +1,17 @@
 /* eslint-disable no-console */
-import { activateForm } from './form.js';
-import { activateFilter } from './filter.js';
-import { addressField } from './form.js';
-import { relatedOffers, getRelatedOffer } from './related-offer.js';
+import { activatePage } from './main.js';
+import { setAddressField } from './form.js';
+import { getRelatedOffer } from './related-offer.js';
+import { TOKYO_CENTER_LOCATION } from './data.js';
 
 
 const map = L.map('map-canvas');
 
-
-// Regular markers
+const mainMarkerIcon = L.icon({
+  iconUrl: '../img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
 
 const regularMarkerIcon = L.icon({
   iconUrl: '../img/pin.svg',
@@ -16,9 +19,45 @@ const regularMarkerIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
-function addRegularMarker () {
+function addMainMarker () {
+  const mainMarker = L.marker(
+    TOKYO_CENTER_LOCATION,
+    {
+      draggable: true,
+      icon: mainMarkerIcon,
+    },
+  );
 
-  relatedOffers.forEach ( (element) => {
+  mainMarker.addTo(map);
+
+  mainMarker.on('move', (evt) => {
+    const currentLocation = {
+      lat: evt.target.getLatLng().lat.toFixed(5),
+      lng: evt.target.getLatLng().lng.toFixed(5),
+    };
+    setAddressField(currentLocation);
+  });
+}
+
+function activateMap () {
+  map.on('load', () => {
+    activatePage();
+    addMainMarker();
+    setAddressField(TOKYO_CENTER_LOCATION);
+  })
+    .setView(TOKYO_CENTER_LOCATION, 12);
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  ).addTo(map);
+
+}
+
+function addRelatedMarkers (offers) {
+  offers.forEach ( (element) => {
     const regularMarker = L.marker(
       {
         lat: element.location.lat,
@@ -32,68 +71,9 @@ function addRegularMarker () {
     regularMarker
       .addTo(map)
       .bindPopup(getRelatedOffer(element));
-
-    regularMarker.on('click', () => {
-      // Без строки ниже почему-то при втором открытии попап показывается пустой. Не понимаю, почему у меня сбрасывает контент после первого клика?
-      regularMarker.setPopupContent(getRelatedOffer(element));
-    });
   });
 
 }
 
 
-// Main marker
-
-const mainMarkerIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
-});
-
-function addMainMarker () {
-  const mainMarker = L.marker(
-    {
-      lat: 35.6762,
-      lng: 139.6503,
-    },
-    {
-      draggable: true,
-      icon: mainMarkerIcon,
-    },
-  );
-
-  mainMarker.addTo(map);
-  mainMarker.on('moveend', (evt) => {
-    const markerLat = evt.target.getLatLng().lat.toFixed(5);
-    const markerLng = evt.target.getLatLng().lng.toFixed(5);
-    addressField.value = `${markerLat}, ${markerLng}`;
-  });
-}
-
-
-// Map
-
-function activateMap () {
-  map.on('load', () => {
-    activateForm();
-    activateFilter();
-    // console.log('maploaded')
-  })
-    .setView({
-      lat: 35.6762,
-      lng: 139.6503,
-    }, 12);
-
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    },
-  ).addTo(map);
-
-  addMainMarker();
-  addRegularMarker();
-}
-
-
-export { activateMap };
+export { activateMap, addRelatedMarkers };

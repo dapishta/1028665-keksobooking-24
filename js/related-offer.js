@@ -1,7 +1,7 @@
 import { getRelatedData } from './related-data.js';
 
 
-const cardTemplate = document.querySelector('#card').content;
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const relatedOffers = getRelatedData();
 
 
