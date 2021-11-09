@@ -2,7 +2,7 @@
 import { activatePage } from './main.js';
 import { setAddressField } from './form.js';
 import { getRelatedOffer } from './related-offer.js';
-import { TOKYO_CENTER_LOCATION } from './data.js';
+import { TokyoCenterLocation } from './data.js';
 
 
 const map = L.map('map-canvas');
@@ -19,14 +19,23 @@ const regularMarkerIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
+const mainMarker = L.marker(
+  TokyoCenterLocation,
+  {
+    draggable: true,
+    icon: mainMarkerIcon,
+  },
+);
+
+const layer = L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
+);
+
+
 function addMainMarker () {
-  const mainMarker = L.marker(
-    TOKYO_CENTER_LOCATION,
-    {
-      draggable: true,
-      icon: mainMarkerIcon,
-    },
-  );
 
   mainMarker.addTo(map);
 
@@ -39,20 +48,20 @@ function addMainMarker () {
   });
 }
 
+function resetMap () {
+  mainMarker.setLatLng(TokyoCenterLocation);
+  map.closePopup();
+}
+
 function activateMap () {
   map.on('load', () => {
     activatePage();
     addMainMarker();
-    setAddressField(TOKYO_CENTER_LOCATION);
+    setAddressField(TokyoCenterLocation);
   })
-    .setView(TOKYO_CENTER_LOCATION, 12);
+    .setView(TokyoCenterLocation, 12);
 
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    },
-  ).addTo(map);
+  layer.addTo(map);
 
 }
 
@@ -76,4 +85,4 @@ function addRelatedMarkers (offers) {
 }
 
 
-export { activateMap, addRelatedMarkers };
+export { activateMap, addRelatedMarkers, resetMap };

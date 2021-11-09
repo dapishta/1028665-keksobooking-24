@@ -1,8 +1,4 @@
-import { getRelatedData } from './related-data.js';
-
-
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const relatedOffers = getRelatedData();
 
 
 function getRoomWord (number) {
@@ -53,23 +49,25 @@ function getRelatedOffer (item) {
   const roomsWord = getRoomWord(roomsNumber);
   const guestsNumber = item.offer.guests;
   const guestsWord = getGuestWord(guestsNumber);
-  const imagesToInsert = getOfferPhotosFragment(item.offer.photos, offerPhotoTemplate);
+
+  if (item.offer.photos) {
+    const imagesToInsert = getOfferPhotosFragment(item.offer.photos, offerPhotoTemplate);
+    offerPhotos.replaceChild(imagesToInsert, offerPhotoTemplate);
+  }
 
   offerTitle.textContent = item.offer.title;
   offerAddress.textContent = item.offer.address;
   offerPrice.textContent = `${  item.offer.price  } ₽/ночь`;
-  offerType.textContent = Object.values(item.offer.type);
+  offerType.textContent = item.offer.type;
   offerCapacity.textContent = `${  roomsNumber  } ${  roomsWord  } для ${  guestsNumber  } ${  guestsWord  }`;
   offerCheckInOut.textContent = `${  item.offer.checkin  }, выезд до ${  item.offer.checkout  }`;
   item.offer.features ? offerFeatures.textContent = item.offer.features : offerFeatures.classList.add('hidden');
   item.offer.description ? offerDescription.textContent = item.offer.description : offerDescription.classList.add('hidden');
-
-  offerPhotos.replaceChild(imagesToInsert, offerPhotoTemplate);
 
   offerAuthorAvatar.src = item.author.avatar;
   return newRelatedOffer;
 }
 
 
-export { relatedOffers, getRelatedOffer };
+export { getRelatedOffer };
 
