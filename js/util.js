@@ -28,19 +28,19 @@ function showSuccessMessage () {
 
   const successPopup = document.querySelector('.success');
 
-  function onEscPressed (evt) {
+  function onSuccessEscPressed (evt) {
     if (evt.key === 'Escape') {
       body.removeChild(successPopup);
-      document.removeEventListener('keydown', onEscPressed);
+      document.removeEventListener('keydown', onSuccessEscPressed);
     }
   }
 
   successPopup.addEventListener('click', () => {
     body.removeChild(successPopup);
-    document.removeEventListener('keydown', onEscPressed);
+    document.removeEventListener('keydown', onSuccessEscPressed);
   });
 
-  document.addEventListener('keydown', onEscPressed);
+  document.addEventListener('keydown', onSuccessEscPressed);
 
 }
 
@@ -52,20 +52,20 @@ function showErrorMessage () {
 
   function onClick () {
     body.removeChild(errorPopup);
-    document.removeEventListener('keydown', onEscPressed);
+    document.removeEventListener('keydown', onErrorEscPressed);
     document.removeEventListener('click', onClick);
   }
 
-  function onEscPressed (evt) {
+  function onErrorEscPressed (evt) {
     if (evt.key === 'Escape') {
       body.removeChild(errorPopup);
-      document.removeEventListener('keydown', onEscPressed);
+      document.removeEventListener('keydown', onErrorEscPressed);
       document.removeEventListener('click', onClick);
     }
   }
 
   document.addEventListener('click', onClick);
-  document.addEventListener('keydown', onEscPressed);
+  document.addEventListener('keydown', onErrorEscPressed);
 
 }
 
