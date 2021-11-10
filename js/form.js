@@ -81,9 +81,11 @@ function onAdFormChange (evt) {
 
 }
 
-function setAddressField (object) {
-  addressField.value = `${object.lat}, ${object.lng}`;
-  addressField.defaultValue = `${object.lat}, ${object.lng}`;
+function setAddressField (latLngString) {
+  addressField.value = latLngString;
+  addressField.defaultValue = latLngString;
+  // addressField.value = `${object.lat}, ${object.lng}`;
+  // addressField.defaultValue = `${object.lat}, ${object.lng}`;
 }
 
 
@@ -92,7 +94,7 @@ function setAddressField (object) {
 function resetForm () {
   form.reset();
   setMinPrice(typeField.value);
-  setAddressField(TokyoCenterLocation);
+  setAddressField(`${TokyoCenterLocation.LAT}, ${TokyoCenterLocation.LNG}`);
 }
 
 function onResetLinkClick () {
@@ -121,9 +123,6 @@ function onAdFormSubmit (evt) {
 // Form activation
 
 function deactivateForm () {
-  // form.removeEventListener('change', onAdFormChange);
-  // form.removeEventListener('submit', onAdFormSubmit);
-  // resetLink.removeEventListener('click', onResetLinkClick);
   form.classList.add('ad-form--disabled');
   formFieldsets.forEach( (element) => {
     element.disabled = true;
@@ -137,7 +136,7 @@ function activateForm () {
   resetLink.addEventListener('click', onResetLinkClick);
   setAvailableCapacity();
   setMinPrice('flat');
-  addressField.value = `${TokyoCenterLocation.lat}, ${TokyoCenterLocation.lng}`;
+  addressField.value = `${TokyoCenterLocation.LAT}, ${TokyoCenterLocation.LNG}`;
   form.classList.remove('ad-form--disabled');
   formFieldsets.forEach( (element) => {
     element.disabled = false;

@@ -20,7 +20,10 @@ const regularMarkerIcon = L.icon({
 });
 
 const mainMarker = L.marker(
-  TokyoCenterLocation,
+  {
+    lat:TokyoCenterLocation.LAT,
+    lng:TokyoCenterLocation.LNG,
+  },
   {
     draggable: true,
     icon: mainMarkerIcon,
@@ -44,12 +47,15 @@ function addMainMarker () {
       lat: evt.target.getLatLng().lat.toFixed(5),
       lng: evt.target.getLatLng().lng.toFixed(5),
     };
-    setAddressField(currentLocation);
+    setAddressField(`${currentLocation.lat}, ${currentLocation.lng}`);
   });
 }
 
 function resetMap () {
-  mainMarker.setLatLng(TokyoCenterLocation);
+  mainMarker.setLatLng({
+    lat:TokyoCenterLocation.LAT,
+    lng:TokyoCenterLocation.LNG,
+  });
   map.closePopup();
 }
 
@@ -57,9 +63,12 @@ function activateMap () {
   map.on('load', () => {
     activatePage();
     addMainMarker();
-    setAddressField(TokyoCenterLocation);
+    setAddressField(`${TokyoCenterLocation.LAT}, ${TokyoCenterLocation.LNG}`);
   })
-    .setView(TokyoCenterLocation, 12);
+    .setView({
+      lat:TokyoCenterLocation.LAT,
+      lng:TokyoCenterLocation.LNG,
+    }, 12);
 
   layer.addTo(map);
 

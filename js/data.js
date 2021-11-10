@@ -1,6 +1,6 @@
 const TokyoCenterLocation = {
-  lat: 35.65283,
-  lng: 139.83947,
+  LAT: 35.65283,
+  LNG: 139.83947,
 };
 
 const TYPE_MIN_PRICES= {
