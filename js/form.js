@@ -1,6 +1,7 @@
 import { sendData } from './api.js';
 import { TYPE_MIN_PRICES, TokyoCenterLocation } from './data.js';
 import { resetMap } from './map.js';
+import { showSuccessMessage, showErrorMessage } from './util.js';
 
 const form = document.querySelector('.ad-form');
 const formFieldsets = form.querySelectorAll('fieldset');
@@ -100,15 +101,19 @@ function onResetLinkClick () {
 }
 
 
-// Submitting the form
+// Form submit
 
-function setAdFormSubmit (onSuccess, onFail) {
+function onAdFormSubmit (evt) {
 
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    const formData = new FormData(evt.target);
-    sendData(onSuccess, onFail, formData);
-  });
+  evt.preventDefault();
+  const formData = new FormData(evt.target);
+  sendData(() => {
+    showSuccessMessage();
+    resetForm();
+    resetMap();
+  },
+  showErrorMessage,
+  formData);
 
 }
 
@@ -116,8 +121,9 @@ function setAdFormSubmit (onSuccess, onFail) {
 // Form activation
 
 function deactivateForm () {
-  form.removeEventListener('change', onAdFormChange);
-  resetLink.removeEventListener('click', onResetLinkClick);
+  // form.removeEventListener('change', onAdFormChange);
+  // form.removeEventListener('submit', onAdFormSubmit);
+  // resetLink.removeEventListener('click', onResetLinkClick);
   form.classList.add('ad-form--disabled');
   formFieldsets.forEach( (element) => {
     element.disabled = true;
@@ -127,6 +133,7 @@ function deactivateForm () {
 
 function activateForm () {
   form.addEventListener('change', onAdFormChange);
+  form.addEventListener('submit', onAdFormSubmit);
   resetLink.addEventListener('click', onResetLinkClick);
   setAvailableCapacity();
   setMinPrice('flat');
@@ -138,4 +145,4 @@ function activateForm () {
 }
 
 
-export { deactivateForm, activateForm, setAddressField, setAdFormSubmit, resetForm };
+export { deactivateForm, activateForm, setAddressField, resetForm };

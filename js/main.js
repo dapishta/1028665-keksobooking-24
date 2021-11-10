@@ -1,8 +1,8 @@
-import { activateForm, deactivateForm, setAdFormSubmit, resetForm } from './form.js';
+import { activateForm, deactivateForm } from './form.js';
 import { activateFilter, deactivateFilter } from './filter.js';
-import { activateMap, addRelatedMarkers, resetMap } from './map.js';
+import { activateMap, addRelatedMarkers } from './map.js';
 import { getData } from './api.js';
-import { showAlert, showSuccessMessage, showErrorMessage } from './util.js';
+import { showAlert } from './util.js';
 
 
 function setUpPage () {
@@ -15,11 +15,6 @@ setUpPage();
 
 function activatePage () {
   activateForm();
-  setAdFormSubmit(() => {
-    showSuccessMessage();
-    resetForm();
-    resetMap();
-  }, showErrorMessage);
   activateFilter();
   getData(addRelatedMarkers, (err) => {
     showAlert(err);

@@ -50,21 +50,18 @@ function showErrorMessage () {
 
   const errorPopup = document.querySelector('.error');
 
-  function onClick () {
+  errorPopup.addEventListener('click', () => {
     body.removeChild(errorPopup);
     document.removeEventListener('keydown', onErrorEscPressed);
-    document.removeEventListener('click', onClick);
-  }
+  });
 
   function onErrorEscPressed (evt) {
     if (evt.key === 'Escape') {
       body.removeChild(errorPopup);
       document.removeEventListener('keydown', onErrorEscPressed);
-      document.removeEventListener('click', onClick);
     }
   }
 
-  document.addEventListener('click', onClick);
   document.addEventListener('keydown', onErrorEscPressed);
 
 }
