@@ -9,10 +9,6 @@ const housingFeaturesFieldset = filter.querySelector('#housing-features');
 const housingFeaturesCollection = housingFeaturesFieldset.querySelectorAll('input');
 let allOffers;
 
-// [x] Отображать не более 10 объявлений
-// [?] При изменении фильтра скрывать открытый балун - нужно получить метод закрытия попапа от карты
-// 3. Научиться фильтровать контент по типу жилья
-// 4. Фильтровать по цене за ночь, числу комнат, числу гостей, доп удобствам
 
 function checkType (offerType) {
   const typeFieldValue = filter.querySelector('#housing-type').value;
