@@ -6,6 +6,7 @@ import { TokyoCenterLocation } from './data.js';
 
 
 const map = L.map('map-canvas');
+const relatedMarkersGroup = L.layerGroup();
 
 const mainMarkerIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
@@ -74,7 +75,12 @@ function activateMap () {
 
 }
 
+
 function addRelatedMarkers (offers) {
+
+  map.closePopup();
+  relatedMarkersGroup.clearLayers();
+
   offers.forEach ( (element) => {
     const regularMarker = L.marker(
       {
@@ -87,11 +93,35 @@ function addRelatedMarkers (offers) {
     );
 
     regularMarker
-      .addTo(map)
+      .addTo(relatedMarkersGroup)
       .bindPopup(getRelatedOffer(element));
   });
+  relatedMarkersGroup.addTo(map);
 
 }
+
+// function addRelatedMarkers (offers) {
+
+//   map.closePopup();
+//   const relatedMarkersGroup = L.layerGroup;
+
+//   offers.forEach ( (element) => {
+//     const regularMarker = L.marker(
+//       {
+//         lat: element.location.lat,
+//         lng: element.location.lng,
+//       },
+//       {
+//         icon: regularMarkerIcon,
+//       },
+//     );
+
+//     regularMarker
+//       .addTo(map)
+//       .bindPopup(getRelatedOffer(element));
+//   });
+
+// }
 
 
 export { activateMap, addRelatedMarkers, resetMap };
