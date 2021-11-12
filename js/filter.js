@@ -40,7 +40,6 @@ function checkFeatures (offerFeatures=[], chosenFeatures) {
 }
 
 function filterOffers (offers) {
-  allOffers = offers;
   const filteredOffers = [];
   const chosenFeatures = housingFeaturesFieldset.querySelectorAll('input:checked');
 
@@ -57,7 +56,6 @@ function filterOffers (offers) {
   }
 
   addRelatedMarkers(filteredOffers);
-  activateFilter();
 }
 
 const filterOffersDebounce = debounce(filterOffers);
@@ -75,7 +73,9 @@ function deactivateFilter () {
   } );
 }
 
-function activateFilter () {
+function activateFilter (offers) {
+  allOffers = offers;
+  filterOffers(allOffers);
   filter.classList.remove('map__filters--disabled');
   filterFieldsets.forEach( (element) => {
     element.disabled = false;
