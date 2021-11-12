@@ -1,5 +1,5 @@
 import { activateForm, deactivateForm } from './form.js';
-import { activateFilter, deactivateFilter, filterOffers } from './filter.js';
+import { deactivateFilter, filterOffers } from './filter.js';
 import { activateMap } from './map.js';
 import { getData } from './api.js';
 import { showAlert } from './util.js';
@@ -15,10 +15,8 @@ setUpPage();
 
 function activatePage () {
   activateForm();
-  activateFilter();
   getData(filterOffers, (err) => {
     showAlert(err);
-    deactivateFilter();
   });
 }
 

@@ -100,28 +100,5 @@ function addRelatedMarkers (offers) {
 
 }
 
-// function addRelatedMarkers (offers) {
-
-//   map.closePopup();
-//   const relatedMarkersGroup = L.layerGroup;
-
-//   offers.forEach ( (element) => {
-//     const regularMarker = L.marker(
-//       {
-//         lat: element.location.lat,
-//         lng: element.location.lng,
-//       },
-//       {
-//         icon: regularMarkerIcon,
-//       },
-//     );
-
-//     regularMarker
-//       .addTo(map)
-//       .bindPopup(getRelatedOffer(element));
-//   });
-
-// }
-
 
 export { activateMap, addRelatedMarkers, resetMap };

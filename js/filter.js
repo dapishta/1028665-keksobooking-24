@@ -1,114 +1,69 @@
 import { addRelatedMarkers } from './map.js';
-// import { debounce } from './utils/debounce.js';
+import { debounce } from './utils/debounce.js';
 
 
 const filter = document.querySelector('.map__filters');
 const filterFieldsets = filter.querySelectorAll('fieldset');
 const RELATED_OFFERS_NUMBER = 10;
 const housingFeaturesFieldset = filter.querySelector('#housing-features');
-const housingFeaturesCollection = housingFeaturesFieldset.querySelectorAll('input');
+const typeField = filter.querySelector('#housing-type');
+const priceField = filter.querySelector('#housing-price');
+const roomsField = filter.querySelector('#housing-rooms');
+const guestsField= filter.querySelector('#housing-guests');
 let allOffers;
 
 
 function checkType (offerType) {
-  const typeFieldValue = filter.querySelector('#housing-type').value;
-
-  if (typeFieldValue === offerType || typeFieldValue === 'any') {
-    return true;
-  }
-  return false;
+  return typeField.value === 'any' ? true : typeField.value === offerType;
 }
 
 function checkPrice (offerPrice) {
-  const priceFieldValue = filter.querySelector('#housing-price').value;
-  if (priceFieldValue === 'any') {
-    return true;
-  } else if (priceFieldValue === 'low' && offerPrice < 10000) {
-    return true;
-  } else if (priceFieldValue === 'middle' && offerPrice >= 10000 && offerPrice <= 50000){
-    return true;
-  } else if (priceFieldValue === 'high' && offerPrice > 50000) {
-    return true;
+  switch (priceField.value) {
+    case 'any': return true;
+    case 'low': return offerPrice < 10000;
+    case 'middle': return offerPrice >= 10000 && offerPrice <= 50000;
+    case 'high': return offerPrice > 50000;
+    default: return false;
   }
-
-  return false;
 }
 
 function checkRooms (offerRooms) {
-  const roomsFieldValue = filter.querySelector('#housing-rooms').value;
-  if (roomsFieldValue === offerRooms.toString() || roomsFieldValue === 'any') {
-    return true;
-  }
-  return false;
+  return roomsField.value === 'any' ? true : roomsField.value === offerRooms.toString();
 }
 
 function checkGuests (offerGuests) {
-  const guestsFieldValue = filter.querySelector('#housing-guests').value;
-  if (guestsFieldValue === offerGuests.toString() || guestsFieldValue === 'any') {
-    return true;
-  }
-  return false;
+  return guestsField.value === 'any' ? true : guestsField.value === offerGuests.toString();
 }
 
-function checkFeatures (offerFeatures) {
-  const chosenFeatures = housingFeaturesFieldset.querySelectorAll('input:checked');
-
-  if (chosenFeatures.length === 0) {
-    return true;
-  }
-
-  if (!offerFeatures) {
-    return false;
-  }
-
-  let result = 0;
-
-  chosenFeatures.forEach((chosenFeature)=>{
-    offerFeatures.forEach((offerFeature) => {
-      if (chosenFeature.value === offerFeature) {
-        result++;
-      }
-    });
-  });
-
-  if (result === chosenFeatures.length) {
-    return true;
-  }
+function checkFeatures (offerFeatures=[], chosenFeatures) {
+  return Array.from(chosenFeatures).every((element) => offerFeatures.includes(element.value));
 }
-
 
 function filterOffers (offers) {
   allOffers = offers;
   const filteredOffers = [];
+  const chosenFeatures = housingFeaturesFieldset.querySelectorAll('input:checked');
 
-  offers.forEach( (element) => {
-    const isTypeValid = checkType(element.offer.type);
-    const isPriceValid = checkPrice(element.offer.price);
-    const isRoomsValid = checkRooms(element.offer.rooms);
-    const isGuestsValid = checkGuests(element.offer.guests);
-    const isFeaturesValid = checkFeatures(element.offer.features);
+  for (let counter = 0; counter < offers.length && filteredOffers.length < RELATED_OFFERS_NUMBER ; counter++) {
+    const isTypeValid = checkType(offers[counter].offer.type);
+    const isPriceValid = checkPrice(offers[counter].offer.price);
+    const isRoomsValid = checkRooms(offers[counter].offer.rooms);
+    const isGuestsValid = checkGuests(offers[counter].offer.guests);
+    const isFeaturesValid = checkFeatures(offers[counter].offer.features, chosenFeatures);
 
     if (isTypeValid && isPriceValid && isRoomsValid && isGuestsValid && isFeaturesValid ) {
-      filteredOffers.push(element);
+      filteredOffers.push(offers[counter]);
     }
-
-  });
-
-  addRelatedMarkers(filteredOffers.slice(0,RELATED_OFFERS_NUMBER ));
-}
-
-function onFilterChange (evt) {
-  if (evt.target.matches('#housing-type') || evt.target.matches('#housing-price') || evt.target.matches('#housing-rooms') || evt.target.matches('#housing-guests')) {
-    // debounce(()=>filterOffers(allOffers),500);
-    filterOffers(allOffers);
   }
 
-  housingFeaturesCollection.forEach ((element)=>{
-    if (evt.target.matches(`#${element.id}`)) {
-      filterOffers(allOffers);
-      // debounce(() => {filterOffers(allOffers)}, 5000);
-    }
-  });
+  addRelatedMarkers(filteredOffers);
+  activateFilter();
+}
+
+const filterOffersDebounce = debounce(filterOffers);
+
+function onFilterChange () {
+  filterOffersDebounce(allOffers);
 }
 
 // Activate & deactivate filter
