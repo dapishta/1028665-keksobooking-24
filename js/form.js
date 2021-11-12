@@ -84,8 +84,6 @@ function onAdFormChange (evt) {
 function setAddressField (latLngString) {
   addressField.value = latLngString;
   addressField.defaultValue = latLngString;
-  // addressField.value = `${object.lat}, ${object.lng}`;
-  // addressField.defaultValue = `${object.lat}, ${object.lng}`;
 }
 
 
