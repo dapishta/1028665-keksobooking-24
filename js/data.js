@@ -11,5 +11,6 @@ const TYPE_MIN_PRICES= {
   'house': 5000,
 };
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-export { TokyoCenterLocation, TYPE_MIN_PRICES };
+export { TokyoCenterLocation, TYPE_MIN_PRICES, FILE_TYPES };

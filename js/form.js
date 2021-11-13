@@ -1,5 +1,5 @@
 import { sendData } from './api.js';
-import { TYPE_MIN_PRICES, TokyoCenterLocation } from './data.js';
+import { TYPE_MIN_PRICES, TokyoCenterLocation, FILE_TYPES } from './data.js';
 import { resetMap } from './map.js';
 import { showSuccessMessage, showErrorMessage } from './util.js';
 
@@ -15,6 +15,9 @@ const priceField = form.querySelector('#price');
 const addressField = form.querySelector('#address');
 const typeField = form.querySelector('#type');
 const resetLink = form.querySelector('.ad-form__reset');
+const avatarPreview = form.querySelector('.ad-form-header__preview img');
+const photosPreviewBlock = form.querySelector('.ad-form__photo');
+const photosPreview = form.querySelector('.ad-form__photo img');
 
 
 // Form validation
@@ -62,6 +65,17 @@ function setMinPrice (value) {
   priceField.placeholder = TYPE_MIN_PRICES[value];
 }
 
+function setPreview (input, insertTo) {
+  const file = input.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const isFileNameCorrect = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (isFileNameCorrect) {
+    insertTo.src = URL.createObjectURL(file);
+  }
+}
+
 function onAdFormChange (evt) {
   if (evt.target.matches('#room_number')) {
     setAvailableCapacity();
@@ -77,6 +91,17 @@ function onAdFormChange (evt) {
   }
   if (evt.target.matches('#type')) {
     setMinPrice(evt.target.value);
+  }
+  if (evt.target.matches('#avatar')) {
+    setPreview(evt.target, avatarPreview);
+  }
+  if (evt.target.matches('#images')) {
+    photosPreview.classList.remove('hidden');
+    photosPreviewBlock.style.display = 'flex';
+    photosPreviewBlock.style.justifyContent = 'center';
+    photosPreviewBlock.style.alignItems = 'center';
+    // photosPreviewBlock.style.textAlign = 'center';
+    setPreview(evt.target, photosPreview);
   }
 
 }
