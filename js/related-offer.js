@@ -1,3 +1,4 @@
+import { TYPE_NAMES } from './data.js';
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 
@@ -31,6 +32,18 @@ function getOfferPhotosFragment (urls, template) {
   return imagesFragment;
 }
 
+function setFeatures (array, templateList) {
+  templateList.forEach((element)=> {
+    element.classList.add('hidden');
+  });
+
+  for (let counter = 0; counter < templateList.length; counter++) {
+    const isMatching = array.some( (element) => templateList[counter].className.includes(element));
+    if (isMatching) {
+      templateList[counter].classList.remove('hidden');
+    }
+  }
+}
 
 function getRelatedOffer (item) {
   const newRelatedOffer = cardTemplate.cloneNode(true);
@@ -40,7 +53,8 @@ function getRelatedOffer (item) {
   const offerType = newRelatedOffer.querySelector('.popup__type');
   const offerCapacity = newRelatedOffer.querySelector('.popup__text--capacity');
   const offerCheckInOut = newRelatedOffer.querySelector('.popup__text--time');
-  const offerFeatures = newRelatedOffer.querySelector('.popup__features');
+  const offerFeaturesBlock = newRelatedOffer.querySelector('.popup__features');
+  const offerFeatures = offerFeaturesBlock.querySelectorAll('li');
   const offerDescription = newRelatedOffer.querySelector('.popup__description');
   const offerPhotos = newRelatedOffer.querySelector('.popup__photos');
   const offerPhotoTemplate = offerPhotos.querySelector('img.popup__photo');
@@ -53,15 +67,17 @@ function getRelatedOffer (item) {
   if (item.offer.photos) {
     const imagesToInsert = getOfferPhotosFragment(item.offer.photos, offerPhotoTemplate);
     offerPhotos.replaceChild(imagesToInsert, offerPhotoTemplate);
+  } else {
+    offerPhotos.classList.add('hidden');
   }
 
   offerTitle.textContent = item.offer.title;
   offerAddress.textContent = item.offer.address;
   offerPrice.textContent = `${  item.offer.price  } ₽/ночь`;
-  offerType.textContent = item.offer.type;
+  offerType.textContent = TYPE_NAMES[item.offer.type];
   offerCapacity.textContent = `${  roomsNumber  } ${  roomsWord  } для ${  guestsNumber  } ${  guestsWord  }`;
-  offerCheckInOut.textContent = `${  item.offer.checkin  }, выезд до ${  item.offer.checkout  }`;
-  item.offer.features ? offerFeatures.textContent = item.offer.features : offerFeatures.classList.add('hidden');
+  offerCheckInOut.textContent = `Заезд после ${  item.offer.checkin  }, выезд до ${  item.offer.checkout  }`;
+  item.offer.features ? setFeatures(item.offer.features, offerFeatures) : offerFeaturesBlock.classList.add('hidden');
   item.offer.description ? offerDescription.textContent = item.offer.description : offerDescription.classList.add('hidden');
 
   offerAuthorAvatar.src = item.author.avatar;

@@ -40,9 +40,7 @@ const layer = L.tileLayer(
 
 
 function addMainMarker () {
-
   mainMarker.addTo(map);
-
   mainMarker.on('move', (evt) => {
     const currentLocation = {
       lat: evt.target.getLatLng().lat.toFixed(5),
@@ -72,12 +70,10 @@ function activateMap () {
     }, 12);
 
   layer.addTo(map);
-
 }
 
 
 function addRelatedMarkers (offers) {
-
   map.closePopup();
   relatedMarkersGroup.clearLayers();
 
@@ -91,13 +87,11 @@ function addRelatedMarkers (offers) {
         icon: regularMarkerIcon,
       },
     );
-
     regularMarker
       .addTo(relatedMarkersGroup)
       .bindPopup(getRelatedOffer(element));
   });
   relatedMarkersGroup.addTo(map);
-
 }
 
 

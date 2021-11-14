@@ -3,7 +3,7 @@ const TokyoCenterLocation = {
   LNG: 139.83947,
 };
 
-const TYPE_MIN_PRICES= {
+const TYPE_MIN_PRICES = {
   'palace': 10000,
   'hotel': 3000,
   'flat': 1000,
@@ -13,4 +13,12 @@ const TYPE_MIN_PRICES= {
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-export { TokyoCenterLocation, TYPE_MIN_PRICES, FILE_TYPES };
+const TYPE_NAMES = {
+  'bungalow': 'Бунгало',
+  'hotel': 'Отель',
+  'palace': 'Дворец',
+  'house': 'Дом',
+  'flat': 'Квартира',
+};
+
+export { TokyoCenterLocation, TYPE_MIN_PRICES, FILE_TYPES, TYPE_NAMES };

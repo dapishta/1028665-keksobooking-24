@@ -1,5 +1,6 @@
 import { sendData } from './api.js';
 import { TYPE_MIN_PRICES, TokyoCenterLocation, FILE_TYPES } from './data.js';
+import { resetFilter } from './filter.js';
 import { resetMap } from './map.js';
 import { showSuccessMessage, showErrorMessage } from './util.js';
 
@@ -68,7 +69,6 @@ function setMinPrice (value) {
 function setPreview (input, insertTo) {
   const file = input.files[0];
   const fileName = file.name.toLowerCase();
-
   const isFileNameCorrect = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (isFileNameCorrect) {
@@ -100,10 +100,8 @@ function onAdFormChange (evt) {
     photosPreviewBlock.style.display = 'flex';
     photosPreviewBlock.style.justifyContent = 'center';
     photosPreviewBlock.style.alignItems = 'center';
-    // photosPreviewBlock.style.textAlign = 'center';
     setPreview(evt.target, photosPreview);
   }
-
 }
 
 function setAddressField (latLngString) {
@@ -123,23 +121,23 @@ function resetForm () {
 function onResetLinkClick () {
   resetForm();
   resetMap();
+  resetFilter();
 }
 
 
 // Form submit
 
 function onAdFormSubmit (evt) {
-
   evt.preventDefault();
   const formData = new FormData(evt.target);
   sendData(() => {
     showSuccessMessage();
     resetForm();
     resetMap();
+    resetFilter();
   },
   showErrorMessage,
   formData);
-
 }
 
 

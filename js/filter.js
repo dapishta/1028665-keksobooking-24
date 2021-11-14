@@ -1,17 +1,20 @@
 import { addRelatedMarkers } from './map.js';
 import { debounce } from './utils/debounce.js';
 
+const RELATED_OFFERS_NUMBER = 10;
 
 const filter = document.querySelector('.map__filters');
 const filterFieldsets = filter.querySelectorAll('fieldset');
-const RELATED_OFFERS_NUMBER = 10;
 const housingFeaturesFieldset = filter.querySelector('#housing-features');
 const typeField = filter.querySelector('#housing-type');
 const priceField = filter.querySelector('#housing-price');
 const roomsField = filter.querySelector('#housing-rooms');
 const guestsField= filter.querySelector('#housing-guests');
+
 let allOffers;
 
+
+// Validate form
 
 function checkType (offerType) {
   return typeField.value === 'any' ? true : typeField.value === offerType;
@@ -60,8 +63,15 @@ function filterOffers (offers) {
 
 const filterOffersDebounce = debounce(filterOffers);
 
+
 function onFilterChange () {
   filterOffersDebounce(allOffers);
+}
+
+// Reset filter
+function resetFilter () {
+  filter.reset();
+  filterOffers(allOffers);
 }
 
 // Activate & deactivate filter
@@ -83,4 +93,4 @@ function activateFilter (offers) {
   filter.addEventListener('change', onFilterChange);
 }
 
-export { deactivateFilter, activateFilter, filterOffers };
+export { deactivateFilter, activateFilter, filterOffers, resetFilter };
